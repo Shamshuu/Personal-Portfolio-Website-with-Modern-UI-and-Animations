@@ -44,23 +44,20 @@ const skills = [
 const projects = [
   {
     title: "Agentic Nutrition Planner",
-    description:
-      "Built an AI-driven multi-agent workflow that generates personalized nutrition and meal plans from dietary constraints and user goals. It also estimates nutrition from uploaded images with calorie and cost forecasting.",
+    description: "Multi-agent AI meal planner with nutrition, calorie, and cost prediction.",
     stack: ["Python", "Streamlit", "SQLite"],
     github: "https://github.com/Shamshuu/Agentic-Nutrition-Planner",
   },
   {
     title: "Payment Gateway Simulation",
-    description:
-      "Designed REST APIs for order creation, payment processing, and hosted checkout flows. Simulated real-world bank latency with success/failure handling and containerized the system using Docker.",
+    description: "Hosted checkout + payment APIs with realistic bank latency simulation.",
     stack: ["Java", "Spring Boot", "PostgreSQL", "React"],
     github:
       "https://github.com/Shamshuu/Payment-Gateway-with-Multi-Method-Processing-and-Hosted-Checkout",
   },
   {
     title: "Multi-Tenant SaaS Application",
-    description:
-      "Implemented tenant-aware authentication with role-based access control and secure data isolation across organizations. Built modular REST APIs for tenant onboarding, user management, and scalable workflows.",
+    description: "Tenant-aware RBAC platform with secure data isolation and modular APIs.",
     stack: ["React", "Node.js", "Express.js", "PostgreSQL"],
     github:
       "https://github.com/Shamshuu/Multi-Tenant-SaaS-Platform-with-Project-and-Task-Management--24A95A1211",
@@ -86,15 +83,30 @@ function App() {
   const [imageError, setImageError] = useState(false);
   const { scrollY } = useScroll();
   const reduceMotion = useReducedMotion();
-  const parallaxY = useTransform(scrollY, [0, 1000], [0, reduceMotion ? 0 : -130]);
+  const parallaxY = useTransform(scrollY, [0, 1200], [0, reduceMotion ? 0 : -140]);
+  const profileParallaxY = useTransform(scrollY, [0, 1200], [0, reduceMotion ? 0 : -90]);
+  const textParallaxY = useTransform(scrollY, [0, 1200], [0, reduceMotion ? 0 : -45]);
   const year = useMemo(() => new Date().getFullYear(), []);
 
   return (
     <div className="app-shell">
       <motion.div className="parallax-orb" style={{ y: parallaxY }} />
+      <motion.p className="bg-name name-font" style={{ y: textParallaxY }}>
+        SHAMSHUDEEN
+      </motion.p>
+      {!imageError && (
+        <motion.img
+          className="bg-profile"
+          src="/profile-photo.jpg"
+          alt=""
+          aria-hidden="true"
+          style={{ y: profileParallaxY }}
+          onError={() => setImageError(true)}
+        />
+      )}
 
       <header className="navbar">
-        <a href="#hero" className="brand">
+        <a href="#hero" className="brand name-font">
           Shamshudeen
         </a>
         <button
@@ -117,17 +129,23 @@ function App() {
         <section id="hero" className="section hero">
           <Reveal>
             <p className="kicker">Software Developer</p>
-            <h1>Shamshudeen Shaik</h1>
+            <h1 className="name-font">Shamshudeen Shaik</h1>
             <p className="hero-tagline">
               Aspiring Software Developer passionate about building impactful applications.
             </p>
-            <p className="hero-bio">
-              I am an Information Technology student focused on full-stack development, DSA, and
-              backend systems.
-            </p>
-            <a className="cta-btn" href="#projects">
-              View My Projects
-            </a>
+            <div className="hero-actions">
+              <a className="cta-btn" href="#projects">
+                View My Projects
+              </a>
+              <a className="ghost-btn" href="https://drive.google.com/file/d/1C4KlSphfULHkJjcSxgTaOgMFCI56f1oJ/view?usp=sharing">
+                Resume
+              </a>
+            </div>
+            <div className="quick-tags">
+              <span>Full-Stack Development</span>
+              <span>DSA Focused</span>
+              <span>Backend Systems</span>
+            </div>
           </Reveal>
         </section>
 
@@ -148,21 +166,23 @@ function App() {
                   onError={() => setImageError(true)}
                 />
               )}
-              <p>
-                I am an Information Technology student with a strong interest in software
-                development, problem-solving, and building practical applications. I have
-                experience with Java, DSA, frontend development, and backend technologies like
-                Node.js and MongoDB through academic and personal projects.
-              </p>
-              <p>
-                I am currently focused on full-stack development, sharpening coding interview
-                skills, and building systems such as ticket booking workflows and a multi-tenant
-                SaaS platform.
-              </p>
-              <p>
-                My goal is to grow into a software engineer who builds scalable products with
-                meaningful user impact while continuously learning modern engineering practices.
-              </p>
+              <div>
+                <p className="about-lead">
+                  IT student building practical full-stack products with clean architecture.
+                </p>
+                <p>
+                  Strong foundation in Java, JavaScript, and backend development using Node.js,
+                  Express, and SQL databases.
+                </p>
+                <p>
+                  Currently sharpening DSA and system design while shipping real projects.
+                </p>
+              </div>
+              <div className="about-highlights">
+                <span>Java + Spring Boot</span>
+                <span>Node.js + Express</span>
+                <span>MongoDB + PostgreSQL</span>
+              </div>
             </div>
           </Reveal>
         </section>
@@ -262,7 +282,10 @@ function App() {
         </section>
       </main>
 
-      <footer className="footer">© {year} Shamshudeen Shaik. Built with React and Framer Motion.</footer>
+      <footer className="footer">
+        © {year} <span className="name-font">Shamshudeen Shaik</span>. Built with React and Framer
+        Motion.
+      </footer>
     </div>
   );
 }
