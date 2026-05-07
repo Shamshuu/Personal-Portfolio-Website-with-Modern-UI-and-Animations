@@ -11,7 +11,7 @@ A fully responsive, animated personal portfolio website built from scratch to sh
 
 ## Live Website
 
-Deployment URL: `To be added after deployment (Vercel or Netlify)`
+Deployment URL: `https://luxury-pithivier-441bad.netlify.app/`
 
 Repository: `https://github.com/Shamshuu/Personal-Portfolio-Website-with-Modern-UI-and-Animations`
 
